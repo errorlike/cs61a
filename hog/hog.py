@@ -1,7 +1,7 @@
 """The Game of Hog."""
 
-from dice import six_sided, make_test_dice
-from ucb import main, trace, interact
+from dice import make_test_dice, six_sided
+from ucb import interact, main, trace
 
 GOAL = 100  # The goal of Hog is to score 100 points.
 
@@ -22,6 +22,19 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, "Must roll at least once."
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    sum = 0
+    flag = False
+    for _ in range(num_rolls):
+        result = dice()
+        if flag:
+            continue
+        if result == 1:
+            sum = 1
+            flag = True
+            continue
+        sum += result
+    return sum
+
     # END PROBLEM 1
 
 
@@ -259,8 +272,6 @@ def run_experiments():
     "*** You may add additional experiments as you wish ***"
 
 
-
-
 def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
     """This strategy returns 0 dice if Boar Brawl gives at least THRESHOLD
     points, and returns NUM_ROLLS otherwise. Ignore the Sus Fuss rule.
@@ -311,3 +322,4 @@ def run(*args):
 
     if args.run_experiments:
         run_experiments()
+
