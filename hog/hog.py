@@ -205,6 +205,11 @@ def always_roll(n):
 
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
+
+    def strategy(self, opponent):
+        return n
+
+    return strategy
     # END PROBLEM 6
 
 
