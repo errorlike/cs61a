@@ -169,6 +169,16 @@ def play(strategy0, strategy1, update, score0=0, score1=0, dice=six_sided, goal=
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    while True:
+        if who == 0:
+            roll_times = strategy0(score0, score1)
+            score0 = update(roll_times, score0, score1, dice)
+        else:
+            roll_times = strategy1(score1, score0)
+            score1 = update(roll_times, score1, score0, dice)
+        if score0 >= goal or score1 >= goal:
+            break
+        who = 1 - who
     # END PROBLEM 5
     return score0, score1
 
