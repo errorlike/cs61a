@@ -268,6 +268,15 @@ def make_averaged(original_function, times_called=1000):
 
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+
+    def average_dice(*args):
+        sum = 0
+        for _ in range(times_called):
+            sum += original_function(*args)
+        average = sum / times_called
+        return average
+
+    return average_dice
     # END PROBLEM 8
 
 
