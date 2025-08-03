@@ -18,7 +18,7 @@ def lambda_curry2(func):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(lambda_curry2)).body[0].body]
     ['Expr', 'Return']
     """
-    return ______
+    return lambda x: lambda y: func(x, y)
 
 
 def sum_digits(y):
