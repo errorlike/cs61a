@@ -108,6 +108,26 @@ def cycle(f1, f2, f3):
     """
     "*** YOUR CODE HERE ***"
 
+    def g(n):
+        def h(x):
+            if n == 0:
+                return x
+            i = 1
+            acc = x
+            while i <= n:
+                if i % 3 == 1:
+                    acc = f1(acc)
+                elif i % 3 == 2:
+                    acc = f2(acc)
+                elif i % 3 == 0:
+                    acc = f3(acc)
+                i += 1
+            return acc
+
+        return h
+
+    return g
+
 
 def composite_identity(f, g):
     """
