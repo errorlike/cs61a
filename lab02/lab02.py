@@ -143,4 +143,8 @@ def composite_identity(f, g):
     >>> b1(4)                            # (4 + 1) ** 2 != 4 ** 2 + 1
     False
     """
-    "*** YOUR CODE HERE ***"
+
+    def compare(x):
+        return f(g(x)) == g(f(x))
+
+    return compare
