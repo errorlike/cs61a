@@ -51,6 +51,11 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    # 求每个数的末尾的绝对值差
+    if n < 10:
+        return 0
+    else:
+        return abs(n % 10 - (n // 10) % 10) + digit_distance(n // 10)
 
 
 def interleaved_sum(n, f_odd, f_even):
