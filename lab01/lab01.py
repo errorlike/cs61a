@@ -1,3 +1,35 @@
+"""Lab 1: Functions & Control."""
+
+
+def pick_digit(n, k):
+    """Return the k-th digit from the right of n.
+
+    >>> pick_digit(3579, 2)
+    5
+    >>> pick_digit(3579, 0)
+    9
+    >>> pick_digit(3579, 10)
+    0
+    """
+    return ____
+
+
+def middle(a, b, c):
+    """Return the number among a, b, and c that is not the smallest or largest.
+    Assume a, b, and c are all different numbers.
+
+    >>> middle(3, 5, 4)
+    4
+    >>> middle(30, 5, 4)
+    5
+    >>> middle(3, 5, 40)
+    5
+    >>> middle(30, 5, 40)
+    30
+    """
+    return ____
+
+
 def falling(n, k):
     """Compute the falling factorial of n to depth k.
 
@@ -14,7 +46,9 @@ def falling(n, k):
 
 
 def divisible_by_k(n, k):
-    """
+    """Print all positive integers up to n that are divisible by k from smallest
+    to largest, then return how many numbers were printed.
+
     >>> a = divisible_by_k(10, 2)  # 2, 4, 6, 8, and 10 are divisible by 2
     2
     4
@@ -54,70 +88,17 @@ def double_eights(n):
     "*** YOUR CODE HERE ***"
 
 
-def two_of_three(i, j, k):
-    """Return m*m + n*n, where m and n are the two smallest members of the
-    positive numbers i, j, and k.
+def sum_digits(y):
+    """Sum all the digits of y.
 
-    >>> two_of_three(1, 2, 3)
-    5
-    >>> two_of_three(5, 3, 1)
-    10
-    >>> two_of_three(10, 2, 8)
-    68
-    >>> two_of_three(5, 5, 5)
-    50
-    """
-    return _____
-
-def two_of_three_syntax_check():
-    """Check that your two_of_three code consists of nothing but a return statement.
-
-    >>> # You aren't expected to understand the code of this test.
-    >>> import inspect, ast
-    >>> [type(x).__name__ for x in ast.parse(inspect.getsource(two_of_three)).body[0].body]
-    ['Expr', 'Return']
-    """
-    # You don't need to edit this function. It's just here to check your work.
-
-
-def middle(a, b, c):
-    """Return the number among a, b, and c that is not the smallest or largest.
-    Assume a, b, and c are all different numbers.
-
-    >>> middle(3, 5, 4)
-    4
-    >>> middle(30, 5, 4)
-    5
-    >>> middle(3, 5, 40)
-    5
-    >>> middle(3, 5, 40)
-    5
-    >>> middle(30, 5, 40)
-    30
-    """
-    return ____
-
-
-def largest_factor(n):
-    """Return the largest factor of n that is smaller than n.
-
-    >>> largest_factor(15) # factors are 1, 3, 5
-    5
-    >>> largest_factor(80) # factors are 1, 2, 4, 5, 8, 10, 16, 20, 40
-    40
-    >>> largest_factor(13) # factors are 1, 13
+    >>> sum_digits(10) # 1 + 0 = 1
     1
-    """
-    "*** YOUR CODE HERE ***"
-
-
-def multiple(a, b):
-    """Return the smallest number n that is a multiple of both a and b.
-
-    >>> multiple(3, 4)
+    >>> sum_digits(4224) # 4 + 2 + 2 + 4 = 12
     12
-    >>> multiple(14, 21)
-    42
+    >>> sum_digits(1234567890)
+    45
+    >>> a = sum_digits(123) # make sure that you are using return rather than print
+    >>> a
+    6
     """
     "*** YOUR CODE HERE ***"
-
