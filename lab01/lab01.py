@@ -11,7 +11,7 @@ def pick_digit(n, k):
     >>> pick_digit(3579, 10)
     0
     """
-    return ____
+    return n // (10**k) % 10
 
 
 def middle(a, b, c):
