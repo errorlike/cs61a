@@ -97,7 +97,15 @@ def double_eights(n):
     >>> double_eights(80808080)
     False
     """
-    "*** YOUR CODE HERE ***"
+    pre = 0
+    while n > 0:
+        current = n % 10
+        n = n // 10
+        if current == 8 and current == pre:
+            return True
+        else:
+            pre = current
+    return False
 
 
 def sum_digits(y):
