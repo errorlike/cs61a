@@ -27,7 +27,7 @@ def middle(a, b, c):
     >>> middle(30, 5, 40)
     30
     """
-    return (a+b+c)-max(a,b,c)-min(a,b,c)
+    return (a + b + c) - max(a, b, c) - min(a, b, c)
 
 
 def falling(n, k):
@@ -42,7 +42,12 @@ def falling(n, k):
     >>> falling(4, 0)
     1
     """
-    "*** YOUR CODE HERE ***"
+    total = 1
+    while k > 0:
+        total *= n
+        n -= 1
+        k -= 1
+    return total
 
 
 def divisible_by_k(n, k):
