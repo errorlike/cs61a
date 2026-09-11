@@ -72,7 +72,14 @@ def divisible_by_k(n, k):
     >>> c
     0
     """
-    "*** YOUR CODE HERE ***"
+    count = 0
+    start = 1
+    while start <= n:
+        if start % k == 0:
+            count += 1
+            print(start)
+        start += 1
+    return count
 
 
 def double_eights(n):
