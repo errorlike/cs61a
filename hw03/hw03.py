@@ -1,4 +1,4 @@
-SOURCE_FILE = __file__
+"""Homework 3: Recursion."""
 
 
 def num_eights(n):
@@ -18,17 +18,14 @@ def num_eights(n):
     0
     >>> num_eights(8782089)
     3
-    >>> from construct_check import check
-    >>> # ban all assignment statements
-    >>> check(SOURCE_FILE, 'num_eights',
-    ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
-    True
+    >>> # This test checks that you used no assignment statements or loops.
+    >>> import inspect, ast
+    >>> banned = ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While']
+    >>> tree = ast.parse(inspect.getsource(num_eights))
+    >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in banned]
+    []
     """
     "*** YOUR CODE HERE ***"
-    if n == 0:
-        return 0
-    else:
-        return num_eights(n // 10) + (n % 10 == 8)
 
 
 def digit_distance(n):
@@ -44,18 +41,13 @@ def digit_distance(n):
     32
     >>> digit_distance(3464660003)  # 1 + 2 + 2 + 2 + ... + 3
     16
-    >>> from construct_check import check
-    >>> # ban all loops
-    >>> check(SOURCE_FILE, 'digit_distance',
-    ...       ['For', 'While'])
-    True
+    >>> # This test checks that you used no loops.
+    >>> import inspect, ast
+    >>> tree = ast.parse(inspect.getsource(digit_distance))
+    >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in ('For', 'While')]
+    []
     """
     "*** YOUR CODE HERE ***"
-    # 求每个数的末尾的绝对值差
-    if n < 10:
-        return 0
-    else:
-        return abs(n % 10 - (n // 10) % 10) + digit_distance(n // 10)
 
 
 def interleaved_sum(n, f_odd, f_even):
@@ -73,97 +65,75 @@ def interleaved_sum(n, f_odd, f_even):
     32
     >>> interleaved_sum(4, square, triple)   # 1*1 + 2*3 + 3*3 + 4*3
     28
-    >>> from construct_check import check
-    >>> check(SOURCE_FILE, 'interleaved_sum', ['While', 'For', 'Mod']) # ban loops and %
-    True
-    >>> check(SOURCE_FILE, 'interleaved_sum', ['BitAnd', 'BitOr', 'BitXor']) # ban bitwise operators, don't worry about these if you don't know what they are
-    True
+    >>> # This test checks that you used no loops, no % (or equivalent workarounds), and
+    >>> # no bitwise operators (&, |, ^); don't worry if you don't know what those are.
+    >>> import inspect, ast
+    >>> banned = ['For', 'While', 'Mod', 'BitAnd', 'BitOr', 'BitXor', 'FloorDiv', 'Mult']
+    >>> tree = ast.parse(inspect.getsource(interleaved_sum))
+    >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in banned]
+    []
     """
     "*** YOUR CODE HERE ***"
 
-    def odd(k):
-        if k > n:
-            return 0
-        return f_odd(k) + even(k + 1)
 
-    def even(k):
-        if k > n:
-            return 0
-        return f_even(k) + odd(k + 1)
-
-    return odd(1)
-
-
-def next_smaller_dollar(bill):
-    """Returns the next smaller bill in order."""
-    if bill == 100:
-        return 50
-    if bill == 50:
-        return 20
-    if bill == 20:
+def next_smaller_coin(coin):
+    """Returns the next smaller coin in order."""
+    if coin == 25:
         return 10
-    elif bill == 10:
+    elif coin == 10:
         return 5
-    elif bill == 5:
+    elif coin == 5:
         return 1
 
-
-def count_dollars(total):
+def count_coins(total):
     """Return the number of ways to make change.
 
-    >>> count_dollars(15)  # 15 $1 bills, 10 $1 & 1 $5 bills, ... 1 $5 & 1 $10 bills
+    >>> count_coins(15)  # 15 1-cent coins, 10 1-cent & 1 5-cent coins, ... 1 5-cent & 1 10-cent coins
     6
-    >>> count_dollars(10)  # 10 $1 bills, 5 $1 & 1 $5 bills, 2 $5 bills, 10 $1 bills
+    >>> count_coins(10)  # 10 1-cent coins, 5 1-cent & 1 5-cent coins, 2 5-cent coins, 1 10-cent coin
     4
-    >>> count_dollars(20)  # 20 $1 bills, 15 $1 & $5 bills, ... 1 $20 bill
-    10
-    >>> count_dollars(45)  # How many ways to make change for 45 dollars?
-    44
-    >>> count_dollars(100) # How many ways to make change for 100 dollars?
-    344
-    >>> count_dollars(200) # How many ways to make change for 200 dollars?
-    3274
-    >>> from construct_check import check
-    >>> # ban iteration
-    >>> check(SOURCE_FILE, 'count_dollars', ['While', 'For'])
-    True
+    >>> count_coins(20)  # 20 1-cent coins, 15 1-cent & 1 5-cent coins, ... 2 10-cent coins
+    9
+    >>> count_coins(45)  # How many ways to make change for 45 cents?
+    39
+    >>> count_coins(100) # How many ways to make change for 100 cents?
+    242
+    >>> count_coins(200) # How many ways to make change for 200 cents?
+    1463
+    >>> # This test checks that you used no loops.
+    >>> import inspect, ast
+    >>> tree = ast.parse(inspect.getsource(count_coins))
+    >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in ('For', 'While')]
+    []
     """
     "*** YOUR CODE HERE ***"
 
 
-def next_larger_dollar(bill):
-    """Returns the next larger bill in order."""
-    if bill == 1:
-        return 5
-    elif bill == 5:
-        return 10
-    elif bill == 10:
-        return 20
-    elif bill == 20:
-        return 50
-    elif bill == 50:
-        return 100
+def max_subseq(n, t):
+    """Return the largest subsequence of at most t digits found in n.
 
+    For example, for n = 2012 and t = 2 the subsequences are 2, 0, 1, 2, 20,
+    21, 22, 01, 02, and 12; the largest is 22.
 
-def count_dollars_upward(total):
-    """Return the number of ways to make change using bills.
-
-    >>> count_dollars_upward(15)  # 15 $1 bills, 10 $1 & 1 $5 bills, ... 1 $5 & 1 $10 bills
-    6
-    >>> count_dollars_upward(10)  # 10 $1 bills, 5 $1 & 1 $5 bills, 2 $5 bills, 10 $1 bills
-    4
-    >>> count_dollars_upward(20)  # 20 $1 bills, 15 $1 & $5 bills, ... 1 $20 bill
-    10
-    >>> count_dollars_upward(45)  # How many ways to make change for 45 dollars?
-    44
-    >>> count_dollars_upward(100) # How many ways to make change for 100 dollars?
-    344
-    >>> count_dollars_upward(200) # How many ways to make change for 200 dollars?
-    3274
-    >>> from construct_check import check
-    >>> # ban iteration
-    >>> check(SOURCE_FILE, 'count_dollars_upward', ['While', 'For'])
-    True
+    >>> max_subseq(2012, 2)
+    22
+    >>> max_subseq(20125, 3)
+    225
+    >>> max_subseq(20125, 5)
+    20125
+    >>> max_subseq(20125, 6)  # note that 20125 == 020125
+    20125
+    >>> max_subseq(12345, 3)
+    345
+    >>> max_subseq(12345, 0)  # 0 is of length 0
+    0
+    >>> max_subseq(12345, 1)
+    5
+    >>> # This test checks that you used no loops.
+    >>> import inspect, ast
+    >>> tree = ast.parse(inspect.getsource(max_subseq))
+    >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in ('For', 'While')]
+    []
     """
     "*** YOUR CODE HERE ***"
 
@@ -171,7 +141,6 @@ def count_dollars_upward(total):
 def print_move(origin, destination):
     """Print instructions to move a disk."""
     print("Move the top disk from rod", origin, "to rod", destination)
-
 
 def move_stack(n, start, end):
     """Print the moves required to move n disks on the start pole to the end
@@ -206,16 +175,18 @@ def move_stack(n, start, end):
 
 from operator import sub, mul
 
-
 def make_anonymous_factorial():
     """Return the value of an expression that computes factorial.
 
     >>> make_anonymous_factorial()(5)
     120
-    >>> from construct_check import check
-    >>> # ban any assignments or recursion
-    >>> check(SOURCE_FILE, 'make_anonymous_factorial',
-    ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
-    True
+    >>> # This test checks that the body is just a return statement that
+    >>> # doesn't refer to make_anonymous_factorial.
+    >>> import inspect, ast
+    >>> body = ast.parse(inspect.getsource(make_anonymous_factorial)).body[0].body
+    >>> [type(x).__name__ for x in body]
+    ['Expr', 'Return']
+    >>> 'make_anonymous_factorial' in ast.dump(body[-1])
+    False
     """
-    return "YOUR_EXPRESSION_HERE"
+    return 'YOUR_EXPRESSION_HERE'
