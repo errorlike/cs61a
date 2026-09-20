@@ -25,7 +25,10 @@ def num_eights(n):
     >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in banned]
     []
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:
+        return int(n == 8)
+    else:
+        return num_eights(n // 10) + int(n % 10 == 8)
 
 
 def digit_distance(n):
