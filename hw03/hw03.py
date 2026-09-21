@@ -50,7 +50,10 @@ def digit_distance(n):
     >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in ('For', 'While')]
     []
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    else:
+        return digit_distance(n // 10) + abs(n % 100 // 10 - n % 100 % 10)
 
 
 def interleaved_sum(n, f_odd, f_even):
@@ -87,6 +90,7 @@ def next_smaller_coin(coin):
         return 5
     elif coin == 5:
         return 1
+
 
 def count_coins(total):
     """Return the number of ways to make change.
@@ -145,6 +149,7 @@ def print_move(origin, destination):
     """Print instructions to move a disk."""
     print("Move the top disk from rod", origin, "to rod", destination)
 
+
 def move_stack(n, start, end):
     """Print the moves required to move n disks on the start pole to the end
     pole without violating the rules of Towers of Hanoi.
@@ -178,6 +183,7 @@ def move_stack(n, start, end):
 
 from operator import sub, mul
 
+
 def make_anonymous_factorial():
     """Return the value of an expression that computes factorial.
 
@@ -192,4 +198,4 @@ def make_anonymous_factorial():
     >>> 'make_anonymous_factorial' in ast.dump(body[-1])
     False
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return "YOUR_EXPRESSION_HERE"
