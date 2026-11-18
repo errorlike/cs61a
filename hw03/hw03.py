@@ -79,7 +79,18 @@ def interleaved_sum(n, f_odd, f_even):
     >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in banned]
     []
     """
-    "*** YOUR CODE HERE ***"
+
+    def sum_odd(odd):
+        if odd == n:
+            return f_odd(odd)
+        return f_odd(odd) + sum_even(odd + 1)
+
+    def sum_even(even):
+        if even == n:
+            return f_even(even)
+        return f_even(even) + sum_odd(even + 1)
+
+    return sum_odd(1)
 
 
 def next_smaller_coin(coin):
