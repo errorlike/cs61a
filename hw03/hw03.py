@@ -124,7 +124,18 @@ def count_coins(total):
     >>> [type(x).__name__ for x in ast.walk(tree) if type(x).__name__ in ('For', 'While')]
     []
     """
-    "*** YOUR CODE HERE ***"
+
+    def count_coins_helper(total, coin):
+        if total == 0:
+            return 1
+        elif total < 0 or coin is None:
+            return 0
+        else:
+            return count_coins_helper(total - coin, coin) + count_coins_helper(
+                total, next_smaller_coin(coin)
+            )
+
+    return count_coins_helper(total, 25)
 
 
 def max_subseq(n, t):
